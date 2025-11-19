@@ -1,4 +1,8 @@
 class Category:
+    """
+    Класс для создания объектов категорий продуктов. В списке продуктов должен хранить экземпляры
+    класса Product
+    """
     name: str
     description: str
     products: list

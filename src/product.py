@@ -1,4 +1,7 @@
 class Product:
+    """
+    Класс для создания объектов продукта, для последующей передачи в класс Category
+    """
     name: str
     description: str
     price: int | float
