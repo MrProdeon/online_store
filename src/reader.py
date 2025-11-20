@@ -1,20 +1,25 @@
 import json
+
 from src.category import Category
 from src.product import Product
 
 path = "products.json"
 
-def json_reader(path):
+
+def json_reader(path : str) -> list[dict]:
     """Чтение json-файла и преобразование его в пайтон-объект.
     В случае неудачи вернет список с пустым словарем"""
     try:
-        with open(path, 'r', encoding="utf-8") as file:
+        with open(path, "r", encoding="utf-8") as file:
             data = json.load(file)
-            return data
-    except Exception as error:
+            if isinstance(data, list):
+                return data
+            else: return [{}]
+    except Exception:
         return [{}]
 
-def create_object_from_json(data):
+
+def create_object_from_json(data : list[dict]) -> list:
     """
     Функция для прохождения по списку словарей и формирования экземпляров класса Category
     и Product
