@@ -1,8 +1,9 @@
+# mypy: ignore-errors
+
 from unittest.mock import mock_open, patch
-import json
 
 import src.category
-from src.reader import json_reader, create_object_from_json
+from src.reader import create_object_from_json, json_reader
 
 
 def test_json_reader(json_load_mock):
@@ -19,6 +20,7 @@ def test_json_reader(json_load_mock):
 
             assert result == json_data
 
+
 def test_json_reader_error():
     result = json_reader(123)
 
@@ -28,11 +30,14 @@ def test_json_reader_error():
 def test_create_object_from_json(json_load_mock):
     result = create_object_from_json(json_load_mock)
     assert len(result) == 1
-    assert isinstance(*result,src.category.Category)
+    assert isinstance(*result, src.category.Category)
 
     category = result[0]
     assert category.name == "Смартфоны"
-    assert category.description == "Смартфоны, как средство не только коммуникации, но и получение дополнительных функций для удобства жизни"
+    assert (
+        category.description
+        == "Смартфоны, как средство не только коммуникации, но и получение дополнительных функций для удобства жизни"
+    )
 
     product = category.products[0]
     assert product.name == "Samsung Galaxy C23 Ultra"
