@@ -1,3 +1,6 @@
+import src.product
+
+
 class Category:
     """
     Класс для создания объектов категорий продуктов. В списке продуктов должен хранить экземпляры
@@ -6,7 +9,7 @@ class Category:
 
     name: str
     description: str
-    products: list
+    __products: list
 
     count_of_categories = 0
     count_of_products = 0
@@ -14,6 +17,25 @@ class Category:
     def __init__(self, name: str, description: str, products: list) -> None:
         self.name = name
         self.description = description
-        self.products = products
+        self.__products = products
         Category.count_of_categories += 1
-        Category.count_of_products += len(self.products)
+        Category.count_of_products += len(self.__products)
+
+    def add_product(self, product: src.product.Product) -> None:
+        """Метод для записи объекта класса Product в список товаров (в атрибут __products)"""
+        if not isinstance(product, src.product.Product):
+            raise ValueError("Можно добавлять только экземпляры класса Product")
+        self.__products.append(product)
+        Category.count_of_products += 1
+
+    @property
+    def products(self) -> str:
+        """Метод для получения продуктов"""
+        products_string = ""
+        for product in self.__products:
+            products_string += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
+        return products_string
+
+    @property
+    def products_in_list(self) -> list:
+        return self.__products
