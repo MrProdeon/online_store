@@ -1,3 +1,8 @@
+from symtable import Class
+
+import src.product
+
+
 class Product:
     """
     Класс для создания объектов продукта, для последующей передачи в класс Category
@@ -5,7 +10,7 @@ class Product:
 
     name: str
     description: str
-    price: int | float
+    __price: int | float
     quantity: int
 
     def __init__(self, name: str, description: str, price: int | float, quantity: int) -> None:
@@ -15,7 +20,7 @@ class Product:
         self.quantity = quantity
 
     @classmethod
-    def new_product(cls, product_params : dict, products_list : list):
+    def new_product(cls, product_params: dict, products_list: list[src.product.Product]) -> src.product.Product:
         """
         Класс-метод для создания нового объекта продукта.
         Если объект с таким именем уже есть, преобразует старый объект, вместо создания нового.
@@ -37,12 +42,12 @@ class Product:
         return cls(**product_params)
 
     @property
-    def price(self):
+    def price(self) -> int | float:
         """Метод для получения цены продукта"""
         return self.__price
 
     @price.setter
-    def price(self, new_price : int | float):
+    def price(self, new_price: int | float) -> None:
         """Метод для изменения цены продукта. В случае отрицательной цены - ничего не изменит."""
         if new_price <= 0:
             print("Цена не должна быть нулевая или отрицательная")
@@ -57,8 +62,3 @@ class Product:
                     print("Цена не изменилась")
             else:
                 self.__price = new_price
-
-
-
-
-

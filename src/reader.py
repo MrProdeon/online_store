@@ -6,7 +6,7 @@ from src.product import Product
 path = "products.json"
 
 
-def json_reader(path : str) -> list[dict]:
+def json_reader(path: str) -> list[dict]:
     """Чтение json-файла и преобразование его в пайтон-объект.
     В случае неудачи вернет список с пустым словарем"""
     try:
@@ -14,12 +14,13 @@ def json_reader(path : str) -> list[dict]:
             data = json.load(file)
             if isinstance(data, list):
                 return data
-            else: return [{}]
+            else:
+                return [{}]
     except Exception:
         return [{}]
 
 
-def create_object_from_json(data : list[dict]) -> list:
+def create_object_from_json(data: list[dict]) -> list:
     """
     Функция для прохождения по списку словарей и формирования экземпляров класса Category
     и Product

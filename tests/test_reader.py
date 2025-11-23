@@ -39,6 +39,6 @@ def test_create_object_from_json(json_load_mock):
         == "Смартфоны, как средство не только коммуникации, но и получение дополнительных функций для удобства жизни"
     )
 
-    product = category.products[0]
+    product = category.products_in_list[0]
     assert product.name == "Samsung Galaxy C23 Ultra"
     assert product.price == 180000.0
