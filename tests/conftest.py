@@ -12,6 +12,11 @@ def product_init():
 
 
 @pytest.fixture
+def product_init2():
+    return Product("Киви", "Зелёный", 100, 4)
+
+
+@pytest.fixture
 def category_init():
     Category.count_of_categories = 0
     Category.count_of_products = 0
