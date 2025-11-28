@@ -14,15 +14,14 @@ class Product:
         self.__price = price
         self.quantity = quantity
 
-
-    def __str__(self):
+    def __str__(self) -> str:
         """Строковое представление для продукта.
         Выведет имя, цену и количество."""
         return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
 
-    def __add__(self, other):
+    def __add__(self, other : "Product") -> int | float:
         """Реализация сложения двух продуктов.
-         Сложение идет по всем имеющимся продуктам.(Всё количество)"""
+        Сложение идет по всем имеющимся продуктам.(Всё количество)"""
         first_product = self.price * self.quantity
         second_product = other.price * other.quantity
         return first_product + second_product

@@ -42,3 +42,7 @@ def test_add_product(category_init, product_init):
     category_init.add_product(product_init)
 
     assert category_init.count_of_products == 3
+
+
+def test_str_category(category_init):
+    assert str(category_init) == "Фрукты, количество продуктов: 6 шт."

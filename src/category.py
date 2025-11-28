@@ -21,7 +21,7 @@ class Category:
         Category.count_of_categories += 1
         Category.count_of_products += len(self.__products)
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Строковое представление, которое указывает на название категории
         и количество товаров в этой категории"""
         total_quantity = 0

@@ -57,3 +57,12 @@ def test_alrready_have_product(product_init):
     assert product.quantity == 6
     assert product.name == "Банан"
     assert product.description == "тест"
+
+
+def test_str_product(product_init):
+    assert str(product_init) == "Банан, 100 руб. Остаток: 4 шт."
+
+
+def test_add_product(product_init, product_init2):
+    result = product_init + product_init2
+    assert result == 800
