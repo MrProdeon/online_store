@@ -19,6 +19,19 @@ class Product:
         self.__price = price
         self.quantity = quantity
 
+
+    def __str__(self):
+        """Строковое представление для продукта.
+        Выведет имя, цену и количество."""
+        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other):
+        """Реализация сложения двух продуктов.
+         Сложение идет по всем имеющимся продуктам.(Всё количество)"""
+        first_product = self.price * self.quantity
+        second_product = other.price * other.quantity
+        return first_product + second_product
+
     @classmethod
     def new_product(cls, product_params: dict, products_list: list[src.product.Product]) -> src.product.Product:
         """
