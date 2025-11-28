@@ -1,8 +1,3 @@
-from symtable import Class
-
-import src.product
-
-
 class Product:
     """
     Класс для создания объектов продукта, для последующей передачи в класс Category
@@ -33,7 +28,7 @@ class Product:
         return first_product + second_product
 
     @classmethod
-    def new_product(cls, product_params: dict, products_list: list[src.product.Product]) -> src.product.Product:
+    def new_product(cls, product_params: dict, products_list: list["Product"]) -> "Product":
         """
         Класс-метод для создания нового объекта продукта.
         Если объект с таким именем уже есть, преобразует старый объект, вместо создания нового.

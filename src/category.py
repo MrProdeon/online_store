@@ -1,4 +1,4 @@
-import src.product
+from src.product import Product
 
 
 class Category:
@@ -29,9 +29,9 @@ class Category:
             total_quantity += product.quantity
         return f"{self.name}, количество продуктов: {total_quantity} шт."
 
-    def add_product(self, product: src.product.Product) -> None:
+    def add_product(self, product: Product) -> None:
         """Метод для записи объекта класса Product в список товаров (в атрибут __products)"""
-        if not isinstance(product, src.product.Product):
+        if not isinstance(product, Product):
             raise ValueError("Можно добавлять только экземпляры класса Product")
         self.__products.append(product)
         Category.count_of_products += 1
