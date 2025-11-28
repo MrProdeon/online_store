@@ -3,6 +3,9 @@ from src.product import Product
 
 
 class CategoryIterator:
+    """Класс для итерации по продуктам в экземпляре класса Category.
+    Принимает экземпляр класса Category и проходит по его атрибуту products_in_list,
+    перебирая все элементы один за другим"""
 
     def __init__(self, category : Category):
         self.category = category
