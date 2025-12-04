@@ -7,7 +7,7 @@ from src.lawngrass import LawnGrass
 
 @pytest.fixture
 def get_lawngrass():
-    return LawnGrass("газон", "обычный", 100, 1, "Россия", 15, "зеленый")
+    return LawnGrass("газон", "обычный", 100, 1, "Россия", "15", "зеленый")
 
 
 def test_lawngrass_init(get_lawngrass):
