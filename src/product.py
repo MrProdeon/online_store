@@ -19,12 +19,14 @@ class Product:
         Выведет имя, цену и количество."""
         return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
 
-    def __add__(self, other : "Product") -> int | float:
+    def __add__(self, other: "Product") -> int | float:
         """Реализация сложения двух продуктов.
         Сложение идет по всем имеющимся продуктам.(Всё количество)"""
-        first_product = self.price * self.quantity
-        second_product = other.price * other.quantity
-        return first_product + second_product
+        if type(other) is type(self):
+            first_product = self.price * self.quantity
+            second_product = other.price * other.quantity
+            return first_product + second_product
+        raise TypeError
 
     @classmethod
     def new_product(cls, product_params: dict, products_list: list["Product"]) -> "Product":

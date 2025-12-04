@@ -18,7 +18,7 @@ def test_category_counter(category_init):
 
 
 def test_product_count(category_init):
-    assert category_init.count_of_products == 2
+    assert category_init.product_count == 2
 
 
 def test_get_product(category_init):
@@ -32,16 +32,16 @@ def test_get_products_in_list(category_init):
 
 
 def test_add_product_error(category_init, capsys):
-    with pytest.raises(ValueError, match="Можно добавлять только экземпляры класса Product"):
+    with pytest.raises(TypeError, match="Можно добавлять только экземпляры класса Product или его дочерних классов"):
         category_init.add_product("123")
 
 
 def test_add_product(category_init, product_init):
-    assert category_init.count_of_products == 2
+    assert category_init.product_count == 2
 
     category_init.add_product(product_init)
 
-    assert category_init.count_of_products == 3
+    assert category_init.product_count == 3
 
 
 def test_str_category(category_init):
