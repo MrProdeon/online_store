@@ -12,14 +12,14 @@ class Category:
     __products: list
 
     count_of_categories = 0
-    count_of_products = 0
+    product_count = 0
 
     def __init__(self, name: str, description: str, products: list) -> None:
         self.name = name
         self.description = description
         self.__products = products
         Category.count_of_categories += 1
-        Category.count_of_products += len(self.__products)
+        Category.product_count += len(self.__products)
 
     def __str__(self) -> str:
         """Строковое представление, которое указывает на название категории
@@ -30,11 +30,11 @@ class Category:
         return f"{self.name}, количество продуктов: {total_quantity} шт."
 
     def add_product(self, product: Product) -> None:
-        """Метод для записи объекта класса Product в список товаров (в атрибут __products)"""
+        """Метод для записи объекта класса Product или его дочерних классов в список товаров (в атрибут __products)"""
         if not isinstance(product, Product):
-            raise ValueError("Можно добавлять только экземпляры класса Product")
+            raise TypeError("Можно добавлять только экземпляры класса Product или его дочерних классов")
         self.__products.append(product)
-        Category.count_of_products += 1
+        Category.product_count += 1
 
     @property
     def products(self) -> str:
