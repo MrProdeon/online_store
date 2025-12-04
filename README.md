@@ -24,7 +24,7 @@ products : list # Продукты (в основном экземпляры к�
 Присутствуют атрибуты класса для подсчета категорий и для подсчета продуктов:
 ```python
 count_of_categories = 0 #подсчет созданных экземляров категорий 
-count_of_products = 0 #подсчет продуктов в категориях
+product_count = 0 #подсчет продуктов в категориях
 ```
 
 Пример использования:
@@ -33,9 +33,71 @@ fruits = Category("Фрукты", "Свежие", [Product("Банан", "Жёл
 
 fruits.name >> Фрукты
 fruits.descriptio >>
-fruits.products >> [Экземпляры класса Product]
+fruits.products (геттер) >> 
+Банан, количество продуктов: 4шт.
+Яблоко, количество продуктов: 2шт.
 
 ```
+
+Методы класса:
+
+str - Строковое представление, которое указывает на название категории
+и количество товаров в этой категории 
+Пример использования:
+```python
+str(fruits)
+>>>
+'''Банан, количество продуктов: 4шт.
+Яблоко, количество продуктов: 2шт.'''
+```
+
+add_product(self, product: Product)
+Метод для записи объекта класса Product или его дочерних классов в список товаров (в атрибут __products)
+Пример использования:
+```python
+
+from category import Category
+from product import Product
+
+# Создаём категорию
+smartphones = Category("Смартфоны")
+
+# Создаём продукты
+iphone = Product(name="iPhone 15", price=1200, quantity=5)
+samsung = Product(name="Samsung S23", price=900, quantity=3)
+
+# Добавляем товары в категорию
+smartphones.add_product(iphone)
+smartphones.add_product(samsung)
+
+print(smartphones.products)
+>>> """iPhone 15, количество продуктов: 5
+Samsung S23,  количество продуктов: 3
+"""
+
+```
+
+Геттер products  
+Получение продуктов, где каждый продукт будет в формате f"{self.name}, количество продуктов: {total_quantity} шт.",  
+при этом каждый продукт на новой строке  
+Пример использования:
+```python
+fruits.products
+>> 
+'''Банан, количество продуктов: 4шт.
+Яблоко, количество продуктов: 2шт.'''
+```
+
+Геттер products_in_list  
+Получение списка с объектами продуктов по категории 
+Пример использования:
+```python
+fruits.products_in_list
+>> 
+[объект класса Product, объект класса Product]
+```
+
+
 
 
 - Модуль product:  
@@ -45,7 +107,7 @@ fruits.products >> [Экземпляры класса Product]
 ```python
 name: str # название продукта
 description: str # описание продукта
-price: int | float # цена продукта
+__price: int | float # цена продукта
 quantity: int # количество
 ```
 
@@ -55,9 +117,129 @@ quantity: int # количество
 banana = Product("Банан", "Жёлтый", 100, 4)
 banana.name >> Банан
 banana.description >> Жёлтый
-banna.price >> 100
+banna.price >> 100 (price вынесен в геттер, так как он защищен)
 banana.quantity >> 4
 ```
+
+
+Доступные методы :
+
+str - вернет строку в формате f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."  
+Пример использования:
+```python
+str(banana)
+>>> 'Банан, 100 руб. Остаток : 4 шт.'
+```  
+
+add - получение суммы при сложении продуктов. Сложение идет по всему количеству на складе.  
+Пример использования:
+```python
+result = banana + apple
+>>> 200
+```
+
+new_product(cls, product_params: dict, products_list: list["Product"]) -> "Product"  
+Класс-метод для создания нового объекта продукта.  
+Если объект с таким именем уже есть, преобразует старый объект, вместо создания нового.  
+Если цена нового больше, то ставит ту, что больше.  
+Количество складывается.  
+Если описание новое передано, то будет новое. Если нет, то старое.  
+```python
+from product import Product
+
+# Список существующих продуктов
+products = [
+    Product(name="iPhone 15", price=1000, quantity=5, description="Флагман Apple"),
+    Product(name="Samsung S23", price=900, quantity=3, description="Флагман Samsung"),
+]
+
+# Новые данные о продукте
+new_item_data = {
+    "name": "iPhone 15",
+    "price": 1200,           # новая цена выше — старая обновится
+    "quantity": 2,           # количество прибавится (5 + 2)
+    "description": "Обновлённая версия описания"
+}
+
+# Создаём или обновляем продукт
+updated_product = Product.new_product(new_item_data, products)
+
+print(updated_product.name)        # iPhone 15
+print(updated_product.price)       # 1200 (старая была 1000 → обновилась)
+print(updated_product.quantity)    # 7   (5 + 2)
+print(updated_product.description) # "Обновлённая версия описания"
+
+# Новый список продуктов
+print(products)
+
+```
+
+Геттер price - получение защищенного атрибута цены товара
+Пример использования:
+```python
+banana.price
+>>> 100
+```
+
+Сеттер price - изменение цены продукта.  В случае отрицательной цены - ничего не изменит.  
+Пример использования:
+```python
+banana.price = 200
+print(banana.price)
+>>> 200
+```
+
+### Модуль smartphone
+Описан класс Smartphone, наследник класса Product.
+```python
+# Создаём объект смартфона
+iphone = Smartphone(
+    name="iPhone 15",
+    description="Флагманский смартфон Apple",
+    price=1200.0,
+    quantity=5,
+    efficiency=95.5,
+    model="A3090",
+    memory=256,
+    color="Black"
+)
+
+
+print(iphone.name)         # iPhone 15
+print(iphone.model)        # A3090
+print(iphone.memory)       # 256
+
+# Можно использовать методы родительского класса Product
+print(iphone.get_total_price())  # 1200 * 5 = 6000
+
+
+```
+
+### Модуль lawngrass
+
+Описан класс LawnGrass, наследник класса Product.
+Пример использования:
+```python
+# Создаём объект газонной травы
+grass = LawnGrass(
+    name="GreenField Universal",
+    description="Универсальная газонная трава для дачи",
+    price=899.0,
+    quantity=10,
+    country="Germany",
+    germination_period="7–14 дней",
+    color="Зелёный"
+)
+
+
+print(grass.name)                # GreenField Universal
+print(grass.country)             # Germany
+print(grass.germination_period)  # 7–14 дней
+
+print(grass.get_total_price())   # 899 * 10 = 8990
+
+```
+
 
 - Модуль readers, в котором расположены функции :
 1) для прочтения JSON-файла и преобразования его в объект пайтон.  
