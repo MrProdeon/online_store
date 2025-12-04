@@ -2,6 +2,8 @@ from src.product import Product
 
 
 class Smartphone(Product):
+    """Класс для создания объектов смартфонов.
+    Данный класс наследуется от класса Product"""
 
     def __init__(
         self,

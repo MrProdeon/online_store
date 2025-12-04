@@ -2,6 +2,8 @@ from src.product import Product
 
 
 class LawnGrass(Product):
+    """Класс для создания объектов газонаю.
+    Данный класс наследуется от класса Product"""
 
     def __init__(
         self,
