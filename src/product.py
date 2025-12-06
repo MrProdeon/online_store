@@ -1,6 +1,44 @@
-class Product:
+from abc import ABC, abstractmethod
+
+class BaseProduct(ABC):
+
+    @classmethod
+    @abstractmethod
+    def new_product(cls, product_params: dict, products_list: list["Product"]) -> "Product":
+        pass
+
+    @property
+    @abstractmethod
+    def price(self):
+        """Геттер метода price"""
+        pass
+
+    @price.setter
+    @abstractmethod
+    def price(self, new_price):
+        """Сеттер метода price"""
+        pass
+
+
+class MixinRepr:
+    """Миксин для вывода технической информации о созданном объекте"""
+
+    def __init__(self):
+        print(self.__repr__())
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self.name}, {self.description}, {self.price}, {self.quantity})"
+
+
+
+
+
+
+class Product(MixinRepr, BaseProduct):
     """
     Класс для создания объектов продукта, для последующей передачи в класс Category
+    Наследуется от абстрактного класса BaseProduct
+    Имеет миксин MixinRepr для вывода технической информации в консоль
     """
 
     name: str
@@ -13,6 +51,7 @@ class Product:
         self.description = description
         self.__price = price
         self.quantity = quantity
+        super().__init__()
 
     def __str__(self) -> str:
         """Строковое представление для продукта.
@@ -42,7 +81,7 @@ class Product:
                 product.quantity += product_params["quantity"]
 
                 if product_params["price"] > product.__price:
-                    product.__price = product_params["price"]
+                    product.price = product_params["price"]
 
                 product.description = product_params.get("description", product.description)
 
@@ -71,3 +110,4 @@ class Product:
                     print("Цена не изменилась")
             else:
                 self.__price = new_price
+
