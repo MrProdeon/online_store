@@ -1,7 +1,18 @@
 from src.product import Product
+from abc import ABC, abstractmethod
+
+class OrderCategory(ABC):
+
+    @abstractmethod
+    def __init__(self, description):
+        self.description = description
+
+    @abstractmethod
+    def __str__(self):
+        pass
 
 
-class Category:
+class Category(OrderCategory):
     """
     Класс для создания объектов категорий продуктов. В списке продуктов должен хранить экземпляры
     класса Product
@@ -11,14 +22,14 @@ class Category:
     description: str
     __products: list
 
-    count_of_categories = 0
+    category_count = 0
     product_count = 0
 
     def __init__(self, name: str, description: str, products: list) -> None:
         self.name = name
-        self.description = description
+        super().__init__(description)
         self.__products = products
-        Category.count_of_categories += 1
+        Category.category_count += 1
         Category.product_count += len(self.__products)
 
     def __str__(self) -> str:
