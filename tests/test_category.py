@@ -14,7 +14,7 @@ def test_category_init(category_init):
 
 
 def test_category_counter(category_init):
-    assert category_init.count_of_categories == 1
+    assert category_init.category_count == 1
 
 
 def test_product_count(category_init):

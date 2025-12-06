@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class BaseProduct(ABC):
 
     @classmethod
@@ -9,13 +10,13 @@ class BaseProduct(ABC):
 
     @property
     @abstractmethod
-    def price(self):
+    def price(self) -> int | float:
         """Геттер метода price"""
         pass
 
     @price.setter
     @abstractmethod
-    def price(self, new_price):
+    def price(self, new_price : int | float) -> None:
         """Сеттер метода price"""
         pass
 
@@ -23,15 +24,11 @@ class BaseProduct(ABC):
 class MixinRepr:
     """Миксин для вывода технической информации о созданном объекте"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         print(self.__repr__())
 
-    def __repr__(self):
-        return f"{self.__class__.__name__}({self.name}, {self.description}, {self.price}, {self.quantity})"
-
-
-
-
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}({self.name}, {self.description}, {self.price}, {self.quantity})" # type: ignore
 
 
 class Product(MixinRepr, BaseProduct):
@@ -110,4 +107,3 @@ class Product(MixinRepr, BaseProduct):
                     print("Цена не изменилась")
             else:
                 self.__price = new_price
-

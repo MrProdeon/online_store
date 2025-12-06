@@ -1,5 +1,6 @@
+import src.product
 from src.category import OrderCategory
-from src.product import Product
+
 
 class Order(OrderCategory):
     """Класс заказа, может содержать только один заказанный товар.
@@ -11,15 +12,17 @@ class Order(OrderCategory):
     Для строкового представления вернет информация о составе заказа, кол-во товаров и общей стоимости
     """
 
-    def __init__(self, description, product, quantity):
+    def __init__(self, description : str, product : src.product.Product, quantity : int) -> None:
         super().__init__(description)
         self.product = product
         self.price = product.price
         self.quantity = quantity
 
     @property
-    def total_price(self):
+    def total_price(self) -> int | float:
         return self.price * self.quantity
 
-    def __str__(self):
-        return f"Состав заказа : {self.product.name}, в количестве {self.quantity}шт; общая стоимость {self.total_price}"
+    def __str__(self) -> str:
+        return (
+            f"Состав заказа : {self.product.name}, в количестве {self.quantity}шт; общая стоимость {self.total_price}"
+        )

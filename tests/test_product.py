@@ -2,6 +2,7 @@
 from unittest.mock import patch
 
 import src.product
+from src.product import Product
 
 
 def test_product_init(product_init):
@@ -66,3 +67,9 @@ def test_str_product(product_init):
 def test_add_product(product_init, product_init2):
     result = product_init + product_init2
     assert result == 800
+
+
+def test_capsys(capsys):
+    Product("Банан", "Жёлтый", 100, 4)
+    msg = capsys.readouterr()
+    assert msg.out == "Product(Банан, Жёлтый, 100, 4)\n"

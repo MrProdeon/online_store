@@ -1,14 +1,16 @@
-from src.product import Product
 from abc import ABC, abstractmethod
+
+from src.product import Product
+
 
 class OrderCategory(ABC):
 
     @abstractmethod
-    def __init__(self, description):
+    def __init__(self, description : str) -> None:
         self.description = description
 
     @abstractmethod
-    def __str__(self):
+    def __str__(self) -> str:
         pass
 
 
