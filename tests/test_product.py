@@ -1,6 +1,8 @@
 # mypy: ignore-errors
 from unittest.mock import patch
 
+import pytest
+
 import src.product
 from src.product import Product
 
@@ -73,3 +75,8 @@ def test_capsys(capsys):
     Product("Банан", "Жёлтый", 100, 4)
     msg = capsys.readouterr()
     assert msg.out == "Product(Банан, Жёлтый, 100, 4)\n"
+
+
+def test_value_error():
+    with pytest.raises(ValueError):
+        Product("Банан", "Жёлтый", 100, 0)

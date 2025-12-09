@@ -12,7 +12,7 @@ class Order(OrderCategory):
     Для строкового представления вернет информация о составе заказа, кол-во товаров и общей стоимости
     """
 
-    def __init__(self, description : str, product : src.product.Product, quantity : int) -> None:
+    def __init__(self, description: str, product: src.product.Product, quantity: int) -> None:
         super().__init__(description)
         self.product = product
         self.price = product.price
