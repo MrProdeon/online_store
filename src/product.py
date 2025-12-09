@@ -16,7 +16,7 @@ class BaseProduct(ABC):
 
     @price.setter
     @abstractmethod
-    def price(self, new_price : int | float) -> None:
+    def price(self, new_price: int | float) -> None:
         """Сеттер метода price"""
         pass
 
@@ -28,7 +28,7 @@ class MixinRepr:
         print(self.__repr__())
 
     def __repr__(self) -> str:
-        return f"{self.__class__.__name__}({self.name}, {self.description}, {self.price}, {self.quantity})" # type: ignore
+        return f"{self.__class__.__name__}({self.name}, {self.description}, {self.price}, {self.quantity})"  # type: ignore
 
 
 class Product(MixinRepr, BaseProduct):
@@ -47,7 +47,10 @@ class Product(MixinRepr, BaseProduct):
         self.name = name
         self.description = description
         self.__price = price
-        self.quantity = quantity
+        if quantity > 0:
+            self.quantity = quantity
+        else:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
         super().__init__()
 
     def __str__(self) -> str:
