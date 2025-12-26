@@ -6,7 +6,7 @@ from src.product import Product
 class OrderCategory(ABC):
 
     @abstractmethod
-    def __init__(self, description : str) -> None:
+    def __init__(self, description: str) -> None:
         self.description = description
 
     @abstractmethod
@@ -49,6 +49,18 @@ class Category(OrderCategory):
         self.__products.append(product)
         Category.product_count += 1
 
+    def middle_price(self) -> int | float:
+        if len(self.products_in_list) == 0:
+            raise ZeroDivisionError
+        try:
+            return round(
+                sum(product.price * product.quantity for product in self.products_in_list)
+                / len(self.products_in_list),
+                2,
+            )
+        except ZeroDivisionError:
+            return 0
+
     @property
     def products(self) -> str:
         """Метод для получения продуктов"""
@@ -58,6 +70,6 @@ class Category(OrderCategory):
         return products_string
 
     @property
-    def products_in_list(self) -> list:
+    def products_in_list(self) -> list[Product]:
         """Геттер для получения списка продуктов"""
         return self.__products

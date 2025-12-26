@@ -2,6 +2,7 @@
 import pytest
 
 import src.product
+from src.category import Category
 
 
 def test_category_init(category_init):
@@ -36,6 +37,11 @@ def test_add_product_error(category_init, capsys):
         category_init.add_product("123")
 
 
+# def test_my_exception(category_init):
+#     with pytest.raises(QuantityException):
+#         category_init.add_product(Product("Банан", "Жёлтый", 100, 0))
+
+
 def test_add_product(category_init, product_init):
     assert category_init.product_count == 2
 
@@ -46,3 +52,13 @@ def test_add_product(category_init, product_init):
 
 def test_str_category(category_init):
     assert str(category_init) == "Фрукты, количество продуктов: 6 шт."
+
+
+def test_middle_price(category_init):
+    assert category_init.middle_price() == 250
+
+
+def test_raise_middle_price():
+    rs = Category("test", "test", [])
+    with pytest.raises(ZeroDivisionError):
+        rs.middle_price()
